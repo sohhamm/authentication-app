@@ -1,10 +1,10 @@
 {
-  "name": "turborepo-basic-shared",
+  "name": "authentication-app",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "client/*",
+    "server/*"
   ],
   "scripts": {
     "build": "turbo run build",
@@ -36,7 +36,7 @@
     }
   },
   "engines": {
-    "npm": ">=7.0.0",
-    "node": ">=14.0.0"
+    "npm": ">=8.3.0",
+    "node": ">=17.3.0"
   }
 }
