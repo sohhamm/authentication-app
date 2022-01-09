@@ -7,7 +7,17 @@
     "npm": ">=8.3.0",
     "node": ">=17.3.0"
   },
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "build": "rimraf dist && tsc",
+    "preserve": "npm run build",
+    "dev": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"pm2 start dist/index.js --name auth-server --watch --ignore-watch=\"node_modules\"\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "stop": "pm2 stop auth-server",
+    "restart": "pm2 restart auth-server"
+  },
   "dependencies": {
+    "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",

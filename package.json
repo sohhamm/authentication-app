@@ -1,10 +1,9 @@
 {
   "name": "authentication-app",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "workspaces": [
-    "client/*",
-    "server/*"
+    "apps/*"
   ],
   "scripts": {
     "build": "turbo run build",
