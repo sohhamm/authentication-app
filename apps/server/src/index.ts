@@ -1,4 +1,4 @@
-import express, {Express} from 'express'
+import express, {Express, Response} from 'express'
 import dotenv from 'dotenv'
 import helmet from 'helmet'
 import cors from 'cors'
@@ -13,13 +13,10 @@ app.use(express.urlencoded({extended: true}))
 app.use(cors())
 
 // health check route
-app.get('/', (_, res) => {
+app.get('/', (_, res: Response) => {
   res.send('Health Check')
 })
 
-// app.use("/api", catRoutes);
-// app.use([notFound]);
-// main function
 ;(async () => {
   try {
     // await connectDB()
