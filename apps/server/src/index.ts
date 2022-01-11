@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import helmet from 'helmet'
 import cors from 'cors'
 import {connectDB} from './db'
+import {authRoutes} from './routes'
 dotenv.config()
 
 const app: Express = express()
@@ -18,6 +19,8 @@ app.use(cors())
 app.get('/', (_, res: Response) => {
   res.send('Health Check')
 })
+
+app.use('/api/auth', authRoutes)
 
 const startServer = async () => {
   try {
