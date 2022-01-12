@@ -4,8 +4,9 @@ import dotenv from 'dotenv'
 import helmet from 'helmet'
 import cors from 'cors'
 import {connectDB} from './db'
-import {authRoutes} from './routes'
+import {authRoutes, userRoutes} from './routes'
 import {notFound} from './middlewares/not-found'
+import {authenticateUser} from './middlewares/authenticate'
 dotenv.config()
 
 const app: Express = express()
@@ -22,6 +23,7 @@ app.get('/api/health', (_, res: Response) => {
 })
 
 app.use('/api/auth', authRoutes)
+app.use('/api/user', authenticateUser, userRoutes)
 
 app.use([notFound])
 

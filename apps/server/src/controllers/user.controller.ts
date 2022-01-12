@@ -1,9 +1,19 @@
 import {Request, Response} from 'express'
+import {StatusCodes} from 'http-status-codes'
+import {User} from '../entities/user'
+import {AuthRequest} from '../types'
 
-export const getUserByID = (req: Request, res: Response) => {
+export const getUserDetails = async (req: Request, res: Response) => {
   try {
-    const {id = ''} = req.params
+    const authReq: AuthRequest = req
+    const email = authReq.user?.email
+    const user = await User.findOne({email})
+    if (!user) {
+      res.status(StatusCodes.BAD_REQUEST).json({msg: 'user does not exist'})
+    }
+
+    res.json({...user, password: undefined})
   } catch (err) {
-    res.status(500).json({msg: err})
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: err})
   }
 }
