@@ -5,6 +5,7 @@ import helmet from 'helmet'
 import cors from 'cors'
 import {connectDB} from './db'
 import {authRoutes} from './routes'
+import {notFound} from './middlewares/not-found'
 dotenv.config()
 
 const app: Express = express()
@@ -16,11 +17,13 @@ app.use(express.urlencoded({extended: true}))
 app.use(cors())
 
 // health check route
-app.get('/', (_, res: Response) => {
+app.get('/api/health', (_, res: Response) => {
   res.send('Health Check')
 })
 
 app.use('/api/auth', authRoutes)
+
+app.use([notFound])
 
 const startServer = async () => {
   try {
