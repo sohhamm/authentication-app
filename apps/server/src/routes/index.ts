@@ -1,4 +1,4 @@
-import {router} from './auth.route'
-import {router as uRouter} from './user.route'
+import {authRoutes} from './auth.route'
+import {userRoutes} from './user.route'
 
-export {router as authRoutes, uRouter as userRoutes}
+export {authRoutes, userRoutes}

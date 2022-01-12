@@ -27,33 +27,34 @@ export const updateUserDetails = async (req: Request, res: Response) => {
     const user = await entityManager.findOne(User, {email: _email})
 
     if (!user) {
-      res.status(StatusCodes.BAD_REQUEST).json({msg: 'user does not exist'})
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({msg: 'user does not exist'})
     }
     const {name, bio, photoUrl, phone, email, password} = req.body
 
-    const updatedFields: any = {}
     if (name) {
-      updatedFields.name = name
+      user.name = name
     }
 
     if (bio) {
-      updatedFields.bio = bio
+      user.bio = bio
     }
 
     if (photoUrl) {
-      updatedFields.photoUrl = photoUrl
+      user.photoUrl = photoUrl
     }
 
     if (phone) {
-      updatedFields.phone = phone
+      user.phone = phone
     }
 
     if (email) {
-      updatedFields.email = email
+      user.email = email
     }
 
     if (password) {
-      updatedFields.password = password
+      user.password = password
     }
     await entityManager.save(user)
 

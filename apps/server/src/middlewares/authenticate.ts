@@ -3,14 +3,14 @@ import {NextFunction, Response} from 'express'
 import {StatusCodes} from 'http-status-codes'
 import {AuthRequest} from '../types'
 
-export const authenticateUser = (
+export const authenticate = (
   req: AuthRequest,
   res: Response,
   next: NextFunction,
 ) => {
   try {
     const authHeader = req.headers.authorization
-    if (!authHeader) {
+    if (!authHeader || !authHeader.startsWith('Bearer')) {
       return res.status(StatusCodes.UNAUTHORIZED).json({msg: 'unauthenticated'})
     }
     const token = authHeader.split(' ')[1]

@@ -5,4 +5,4 @@ const router = express.Router()
 
 router.route('/').get(getUserDetails).patch(updateUserDetails)
 
-export {router}
+export {router as userRoutes}
