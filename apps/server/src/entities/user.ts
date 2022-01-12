@@ -5,6 +5,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm'
+import {IsEmail, IsNotEmpty} from 'class-validator'
 
 @Entity()
 export class User extends BaseEntity {
@@ -17,21 +18,24 @@ export class User extends BaseEntity {
   @CreateDateColumn({name: 'updated_at'})
   updatedAt!: Date
 
-  @Column()
-  name!: string
+  @Column({default: ''})
+  name: string = ''
 
-  @Column('varchar', {length: 200})
-  bio!: string
+  @Column('varchar', {length: 200, default: ''})
+  bio: string = ''
 
-  @Column({name: 'photo_url'})
-  photoUrl!: string
+  @Column({name: 'photo_url', default: ''})
+  photoUrl: string = ''
 
-  @Column()
-  phone!: number
+  @Column({default: ''})
+  phone: string = ''
 
   @Column({unique: true})
+  @IsNotEmpty()
+  @IsEmail()
   email!: string
 
   @Column()
+  @IsNotEmpty()
   password!: string
 }
