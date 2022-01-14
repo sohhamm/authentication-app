@@ -38,4 +38,16 @@ export class User extends BaseEntity {
   @Column()
   @IsNotEmpty()
   password!: string
+
+  @Column({name: 'github_id'})
+  githubID: string | null = null
+
+  @Column({name: 'google_id'})
+  googleID: string | null = null
+
+  @Column({name: 'facebook_id'})
+  facebookID: string | null = null
+
+  @Column({name: 'twitter_id'})
+  twitterID: string | null = null
 }
