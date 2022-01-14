@@ -44,6 +44,8 @@
     "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.6",
     "@types/node": "^17.0.8",
+    "@types/passport-facebook": "^2.1.11",
+    "@types/passport-github2": "^1.2.5",
     "@types/passport-google-oauth20": "^2.0.11",
     "@types/passport-twitter": "^1.0.37",
     "concurrently": "^7.0.0",

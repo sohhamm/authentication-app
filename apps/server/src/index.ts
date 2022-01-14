@@ -5,12 +5,24 @@ import helmet from 'helmet'
 import cors from 'cors'
 import passport from 'passport'
 import {connectDB} from './config/db'
-import {authRoutes, userRoutes} from './routes'
+import {
+  authRoutes,
+  userRoutes,
+  twitterRoutes,
+  githubRoutes,
+  googleRoutes,
+  facebookRoutes,
+} from './routes'
 import {notFound} from './middlewares/not-found'
 import {authenticate} from './middlewares/authenticate'
-import {googleAuth, passportSession, twitterAuth} from './config/auth'
-import {twitterRoutes} from './routes/twitter.route'
-import {googleRoutes} from './routes/google.route'
+import {
+  facebookAuth,
+  githubAuth,
+  googleAuth,
+  passportSession,
+  twitterAuth,
+} from './config/auth'
+
 dotenv.config()
 
 const app: Express = express()
@@ -18,6 +30,8 @@ const PORT = process.env.PORT || 9000
 
 googleAuth()
 twitterAuth()
+facebookAuth()
+githubAuth()
 passportSession()
 
 app.use(
@@ -42,6 +56,8 @@ app.get('/api/health', (_, res: Response) => {
 app.use('/api/auth', authRoutes)
 app.use('/api/auth/google', googleRoutes)
 app.use('/api/auth/twitter', twitterRoutes)
+app.use('/api/auth/facebook', facebookRoutes)
+app.use('/api/auth/github', githubRoutes)
 app.use('/api/user', authenticate, userRoutes)
 
 app.use([notFound])
