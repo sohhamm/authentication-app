@@ -1,13 +1,15 @@
 import {Route, Routes} from 'react-router-dom'
 import './App.css'
-import Login from './pages/login'
-import Profile from './pages/profile'
+import Login from './pages/login/login'
+import NotFound from './pages/not-found/not-found'
+import Profile from './pages/profile/profile'
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="profile" element={<Profile />} />
+      <Route path="/" element={<Profile />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }

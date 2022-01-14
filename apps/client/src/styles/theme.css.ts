@@ -15,6 +15,7 @@ export const vars = createGlobalTheme(':root', {
     darkBg: '#333333',
     link: '#2D9CDB',
     border: '#BDBDBD',
+    icon: '#828282',
     text: {
       normal: '#1F2937',
       dimmed: '#6B7280',

@@ -19,3 +19,25 @@ export const center = style({
   width: '100%',
   height: '100vh',
 })
+
+export const inputContainer = style({
+  position: 'relative',
+})
+
+export const icon = style({
+  position: 'absolute',
+  left: '15px',
+  top: '15px',
+  color: vars.colors.icon,
+})
+
+export const input = style({
+  height: '48px',
+  width: '365px',
+  borderRadius: '8px',
+  border: '1px solid #BDBDBD',
+  marginBottom: '14.5px',
+  '::placeholder': {
+    paddingLeft: '40px',
+  },
+})
