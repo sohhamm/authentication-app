@@ -1,10 +1,9 @@
 import jwt from 'jsonwebtoken'
-import {NextFunction, Response} from 'express'
+import {NextFunction, Response, Request} from 'express'
 import {StatusCodes} from 'http-status-codes'
-import {AuthRequest} from '../types'
 
 export const authenticate = (
-  req: AuthRequest,
+  req: Request,
   res: Response,
   next: NextFunction,
 ) => {

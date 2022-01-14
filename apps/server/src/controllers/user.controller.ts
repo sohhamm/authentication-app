@@ -6,7 +6,7 @@ import {AuthRequest} from '../types'
 
 export const getUserDetails = async (req: Request, res: Response) => {
   try {
-    const authReq: AuthRequest = req
+    const authReq: any = req
     const email = authReq.user?.email
     const user = await User.findOne({email})
     if (!user) {

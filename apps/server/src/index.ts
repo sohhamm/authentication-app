@@ -3,15 +3,32 @@ import express, {Express, Response} from 'express'
 import dotenv from 'dotenv'
 import helmet from 'helmet'
 import cors from 'cors'
-import {connectDB} from './db'
+import passport from 'passport'
+import {connectDB} from './config/db'
 import {authRoutes, userRoutes} from './routes'
 import {notFound} from './middlewares/not-found'
-import {authenticateUser} from './middlewares/authenticate'
+import {authenticate} from './middlewares/authenticate'
+import {googleAuth, passportSession, twitterAuth} from './config/auth'
+import {twitterRoutes} from './routes/twitter.route'
+import {googleRoutes} from './routes/google.route'
 dotenv.config()
 
 const app: Express = express()
 const PORT = process.env.PORT || 9000
 
+googleAuth()
+twitterAuth()
+passportSession()
+
+app.use(
+  require('express-session')({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+  }),
+)
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(helmet())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -23,7 +40,9 @@ app.get('/api/health', (_, res: Response) => {
 })
 
 app.use('/api/auth', authRoutes)
-app.use('/api/user', authenticateUser, userRoutes)
+app.use('/api/auth/google', googleRoutes)
+app.use('/api/auth/twitter', twitterRoutes)
+app.use('/api/user', authenticate, userRoutes)
 
 app.use([notFound])
 

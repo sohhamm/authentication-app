@@ -1,5 +1,5 @@
 import {ConnectionOptions, createConnection} from 'typeorm'
-import {User} from './entities/user'
+import {User} from '../entities/user'
 import path from 'path'
 import dotenv from 'dotenv'
 dotenv.config({path: path.resolve(__dirname + '../.env')})

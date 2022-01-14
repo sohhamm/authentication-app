@@ -10,5 +10,5 @@ export type HashPasswordFn = (password: string) => Promise<string>
 export type CreateJWTFn = (email: string) => Promise<string>
 
 export interface AuthRequest extends Request {
-  user?: {email: string}
+  user?: {email?: string}
 }
