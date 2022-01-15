@@ -9,11 +9,21 @@ import {
 } from 'react-icons/ai'
 import {IAuthForm} from '../../../types'
 
-export default function AuthForm({title, subTitle, ctaText}: IAuthForm) {
+export default function AuthForm({
+  title,
+  subTitle,
+  ctaText,
+  buttonText,
+}: IAuthForm) {
   return (
     <div className={styles.container}>
       <Brand />
-      <h1 className={styles.title}>{title}</h1>
+      <h1
+        className={styles.title}
+        style={!subTitle ? {marginBottom: '27px'} : {}}
+      >
+        {title}
+      </h1>
       {subTitle && <p className={styles.subTitle}>{subTitle}</p>}
       <div className={styles.inputContainer}>
         <i className={styles.icon}>
@@ -31,7 +41,7 @@ export default function AuthForm({title, subTitle, ctaText}: IAuthForm) {
           placeholder="Password"
         />
       </div>
-      <button className={styles.button}>Start coding now</button>
+      <button className={styles.button}>{buttonText}</button>
       <p className={styles.actionText}>or continue with these social profile</p>
       <div className={styles.socialBox}>
         {socialAuth.map(social => (

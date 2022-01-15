@@ -1,5 +1,6 @@
 export interface IAuthForm {
   title: string
   subTitle?: string
-  ctaText: string | JSX.Element
+  ctaText: JSX.Element
+  buttonText: string
 }

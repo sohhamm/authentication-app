@@ -17,7 +17,12 @@ const cta = (
 export default function Register() {
   return (
     <div className={styles.center}>
-      <AuthForm title={title} subTitle={subTitle} ctaText={cta} />
+      <AuthForm
+        title={title}
+        subTitle={subTitle}
+        ctaText={cta}
+        buttonText="Start coding now"
+      />
     </div>
   )
 }

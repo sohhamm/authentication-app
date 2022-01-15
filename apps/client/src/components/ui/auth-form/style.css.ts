@@ -29,9 +29,7 @@ export const input = style({
   borderRadius: '8px',
   border: '1px solid #BDBDBD',
   marginBottom: '14.5px',
-  '::placeholder': {
-    paddingLeft: '40px',
-  },
+  paddingLeft: '50px',
 })
 
 export const button = style({

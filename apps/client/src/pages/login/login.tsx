@@ -14,7 +14,7 @@ const cta = (
 export default function Login() {
   return (
     <div className={styles.center}>
-      <AuthForm title="Login" ctaText={cta} />
+      <AuthForm title="Login" ctaText={cta} buttonText="Login" />
     </div>
   )
 }
