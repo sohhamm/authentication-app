@@ -3,6 +3,7 @@ import AuthForm from '../../components/ui/auth-form/AuthForm'
 import * as styles from './style.css'
 
 const title = 'Join thousands of learners from around the world'
+
 const subTitle =
   'Master web development by making real-life projects. There are multiple paths for you to choose'
 

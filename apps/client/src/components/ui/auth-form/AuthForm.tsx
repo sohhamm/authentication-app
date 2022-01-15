@@ -1,13 +1,8 @@
 import * as styles from './style.css'
 import Brand from '../brand/Brand'
 import {MdEmail, MdLock} from 'react-icons/md'
-import {
-  AiOutlineGoogle,
-  AiFillFacebook,
-  AiOutlineTwitter,
-  AiOutlineGithub,
-} from 'react-icons/ai'
 import {IAuthForm} from '../../../types'
+import {socialAuth} from '../../../constants'
 
 export default function AuthForm({
   title,
@@ -56,22 +51,3 @@ export default function AuthForm({
     </div>
   )
 }
-
-const socialAuth = [
-  {
-    icon: AiOutlineGoogle,
-    link: '/google/login',
-  },
-  {
-    icon: AiFillFacebook,
-    link: '/facebook/login',
-  },
-  {
-    icon: AiOutlineTwitter,
-    link: '/twitter/login',
-  },
-  {
-    icon: AiOutlineGithub,
-    link: '/github/login',
-  },
-]
