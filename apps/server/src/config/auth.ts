@@ -4,6 +4,8 @@ import {Strategy as GStrategy} from 'passport-google-oauth20'
 import {Strategy as TStrategy} from 'passport-twitter'
 import {Strategy as FBStrategy} from 'passport-facebook'
 import {Strategy as GHStrategy} from 'passport-github2'
+import {User} from '../entities/user'
+import {getManager} from 'typeorm'
 dotenv.config()
 const {
   GOOGLE_CLIENT_ID,
@@ -29,6 +31,8 @@ export const googleAuth = () => {
       (accessToken, refreshToken, profile, cb) => {
         console.log(accessToken, refreshToken)
         console.log({profile})
+        const entityManager = getManager()
+        // const user = entityManager.findOne({google})
         return cb(null, {accessToken, profile})
       },
     ),

@@ -23,3 +23,5 @@ export const socialAuth = [
     link: '/github/login',
   },
 ]
+
+export const ACCESS_TOKEN = '__aa__.accessToken'
