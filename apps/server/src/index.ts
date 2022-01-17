@@ -22,6 +22,7 @@ import {
   passportSession,
   twitterAuth,
 } from './config/auth'
+import session from 'express-session'
 
 dotenv.config()
 
@@ -35,16 +36,24 @@ githubAuth()
 passportSession()
 
 app.use(
-  require('express-session')({
-    secret: process.env.SESSION_SECRET,
+  session({
+    secret: process.env.SESSION_SECRET!,
     resave: true,
     saveUninitialized: true,
+    cookie: {
+      maxAge: 60 * 60 * 1000,
+    },
+    name: '__aa__.sessionID',
   }),
 )
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(helmet())
-app.use(cors())
+app.use(
+  cors({
+    credentials: true,
+  }),
+)
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
@@ -59,8 +68,7 @@ app.use('/api/auth/facebook', facebookRoutes)
 app.use('/api/auth/github', githubRoutes)
 app.use('/api/user', authenticate, userRoutes)
 app.get('/api/auth/logout', (req: Request, res, _next) => {
-  req.logout()
-  res.redirect('/')
+  req.session.destroy(() => res.redirect('/login'))
 })
 
 app.use([notFound])

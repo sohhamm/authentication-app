@@ -12,8 +12,8 @@ router.get(
 router.get(
   '/callback',
   passport.authenticate('google', {failureRedirect: CLIENT_URL + '/register'}),
-  (req, res, _next) => {
-    console.log(req.user, 'callback user')
+  (_req, res, _next) => {
+    // todo move to jwt instead of session
     res.redirect(CLIENT_URL)
   },
 )

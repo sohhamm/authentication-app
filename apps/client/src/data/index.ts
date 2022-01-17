@@ -44,7 +44,3 @@ export const githubLogin = async () => {
 export const logout = async () => {
   window.open(URL + 'auth/logout', '_self')
 }
-
-export const getUser = async () => {
-  return await fetcher('auth/login/success')
-}

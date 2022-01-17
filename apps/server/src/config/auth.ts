@@ -29,11 +29,9 @@ export const googleAuth = () => {
         sessionKey: SESSION_SECRET,
       },
       async (accessToken, _refreshToken, profile, cb) => {
-        console.log(accessToken, 'accessToken')
         const {
           _json: {name, sub, picture, email},
         } = profile
-        console.log({name, sub, picture, email})
         const entityManager = getManager()
         const user = await entityManager.findOne(User, {
           email,
@@ -68,10 +66,9 @@ export const twitterAuth = () => {
         callbackURL: 'api/auth/twitter/callback',
         sessionKey: SESSION_SECRET,
       },
-      (accessToken, refreshToken, profile, cb) => {
-        console.log(accessToken, refreshToken)
+      (accessToken, _refreshToken, profile, cb) => {
         console.log({profile})
-        return cb(null, {accessToken, profile})
+        return cb(null, accessToken)
       },
     ),
   )
@@ -85,10 +82,9 @@ export const facebookAuth = () => {
         clientSecret: FACEBOOK_APP_SECRET!,
         callbackURL: 'api/auth/facebook/callback',
       },
-      (accessToken, refreshToken, profile, cb) => {
-        console.log(accessToken, refreshToken)
+      (accessToken, _refreshToken, profile, cb) => {
         console.log({profile})
-        return cb(null, {accessToken, profile})
+        return cb(null, accessToken)
       },
     ),
   )
@@ -102,10 +98,9 @@ export const githubAuth = () => {
         clientSecret: GITHUB_CLIENT_SECRET!,
         callbackURL: 'api/auth/github/callback',
       },
-      (accessToken: any, refreshToken: any, profile: any, cb: any) => {
-        console.log(accessToken, refreshToken)
+      (accessToken: any, _refreshToken: any, profile: any, cb: any) => {
         console.log({profile})
-        return cb(null, {accessToken, profile})
+        return cb(null, accessToken)
       },
     ),
   )
@@ -116,7 +111,7 @@ export const passportSession = () => {
     cb(null, user)
   })
 
-  passport.deserializeUser((obj: any, cb) => {
-    cb(null, obj)
+  passport.deserializeUser((user: any, cb) => {
+    cb(null, user)
   })
 }

@@ -7,6 +7,7 @@ export const authenticate = (
   res: Response,
   next: NextFunction,
 ) => {
+  // todo check session ids for single sign on for passport services then fallback to jwt
   try {
     const authHeader = req.headers.authorization
     if (!authHeader || !authHeader.startsWith('Bearer')) {

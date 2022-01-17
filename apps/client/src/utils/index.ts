@@ -10,6 +10,7 @@ export const fetcher: TFetcher = async (
   return await (
     await fetch(URL + url, {
       method,
+      // credentials: 'include',
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
