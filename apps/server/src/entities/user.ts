@@ -18,36 +18,36 @@ export class User extends BaseEntity {
   @CreateDateColumn({name: 'updated_at'})
   updatedAt!: Date
 
-  @Column({default: ''})
-  name: string = ''
+  @Column({nullable: true})
+  name?: string
 
-  @Column('varchar', {length: 200, default: ''})
-  bio: string = ''
+  @Column('varchar', {length: 200, nullable: true})
+  bio?: string
 
-  @Column({name: 'photo_url', default: ''})
-  photoUrl: string = ''
+  @Column({name: 'photo_url', nullable: true})
+  photoUrl?: string
 
-  @Column({default: ''})
-  phone: string = ''
+  @Column({nullable: true})
+  phone?: string
 
   @Column({unique: true})
   @IsNotEmpty()
   @IsEmail()
   email!: string
 
-  @Column()
+  @Column({nullable: true})
   @IsNotEmpty()
-  password!: string
+  password?: string
 
-  @Column({name: 'github_id'})
-  githubID: string | null = null
+  @Column({name: 'github_id', nullable: true})
+  githubID?: string
 
-  @Column({name: 'google_id'})
-  googleID: string | null = null
+  @Column({name: 'google_id', nullable: true})
+  googleID?: string
 
-  @Column({name: 'facebook_id'})
-  facebookID: string | null = null
+  @Column({name: 'facebook_id', nullable: true})
+  facebookID?: string
 
-  @Column({name: 'twitter_id'})
-  twitterID: string | null = null
+  @Column({name: 'twitter_id', nullable: true})
+  twitterID?: string
 }

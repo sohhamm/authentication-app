@@ -28,11 +28,20 @@ export const googleAuth = () => {
         callbackURL: 'auth/google/callback',
         sessionKey: SESSION_SECRET,
       },
-      (accessToken, refreshToken, profile, cb) => {
+      async (accessToken, refreshToken, profile, cb) => {
         console.log(accessToken, refreshToken)
         console.log({profile})
         const entityManager = getManager()
-        // const user = entityManager.findOne({google})
+        const _email = profile?.emails ? profile.emails[0].value : ''
+        const user = await entityManager.findOne(User, {
+          email: _email,
+        })
+        if (!user) {
+          //create a user
+        } else {
+          //update gID
+          user.googleID = profile.id
+        }
         return cb(null, {accessToken, profile})
       },
     ),
