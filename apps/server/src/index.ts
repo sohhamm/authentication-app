@@ -51,6 +51,7 @@ app.use(passport.session())
 app.use(helmet())
 app.use(
   cors({
+    origin: true,
     credentials: true,
   }),
 )
