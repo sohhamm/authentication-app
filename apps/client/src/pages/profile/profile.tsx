@@ -1,9 +1,18 @@
 import * as React from 'react'
 import * as styles from './style.css'
 import Header from '../../components/ui/header/Header'
+import {useAuth} from '../../hooks/use-auth'
+import {getUser} from '../../data'
 
 export default function Profile() {
   const [editMode, setEditMode] = React.useState(false)
+  const {token, setToken} = useAuth()
+
+  React.useEffect(() => {
+    getUser().then(res => setToken(res))
+  }, [])
+
+  console.log({token})
   return (
     <div className={styles.layout}>
       <Header />

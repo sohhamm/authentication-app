@@ -56,7 +56,10 @@ export const login = async (req: Request, res: Response) => {
         .json({msg: 'account not found please register'})
     }
 
-    const isCorrectPassword = await comparePassword(password, user.password)
+    const isCorrectPassword = await comparePassword(
+      password,
+      user.password ?? '',
+    )
 
     if (!isCorrectPassword) {
       return res

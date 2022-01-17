@@ -25,24 +25,35 @@ export const googleAuth = () => {
       {
         clientID: GOOGLE_CLIENT_ID!,
         clientSecret: GOOGLE_CLIENT_SECRET!,
-        callbackURL: 'auth/google/callback',
+        callbackURL: 'api/auth/google/callback',
         sessionKey: SESSION_SECRET,
       },
-      async (accessToken, refreshToken, profile, cb) => {
-        console.log(accessToken, refreshToken)
-        console.log({profile})
+      async (accessToken, _refreshToken, profile, cb) => {
+        console.log(accessToken, 'accessToken')
+        const {
+          _json: {name, sub, picture, email},
+        } = profile
+        console.log({name, sub, picture, email})
         const entityManager = getManager()
-        const _email = profile?.emails ? profile.emails[0].value : ''
         const user = await entityManager.findOne(User, {
-          email: _email,
+          email,
         })
+
+        console.log(user, 'user')
         if (!user) {
           //create a user
+          // user.name = name
+          // user.googleID = sub
+          // user.photoUrl = picture
+          // if (email) user.email = email
         } else {
           //update gID
-          user.googleID = profile.id
+          user.name = name
+          user.googleID = sub
+          user.photoUrl = picture
+          if (email) user.email = email
         }
-        return cb(null, {accessToken, profile})
+        return cb(null, accessToken)
       },
     ),
   )
@@ -54,7 +65,7 @@ export const twitterAuth = () => {
       {
         consumerKey: TWITTER_CONSUMER_KEY!,
         consumerSecret: TWITTER_CONSUMER_SECRET!,
-        callbackURL: 'auth/twitter/callback',
+        callbackURL: 'api/auth/twitter/callback',
         sessionKey: SESSION_SECRET,
       },
       (accessToken, refreshToken, profile, cb) => {
@@ -72,7 +83,7 @@ export const facebookAuth = () => {
       {
         clientID: FACEBOOK_APP_ID!,
         clientSecret: FACEBOOK_APP_SECRET!,
-        callbackURL: 'auth/facebook/callback',
+        callbackURL: 'api/auth/facebook/callback',
       },
       (accessToken, refreshToken, profile, cb) => {
         console.log(accessToken, refreshToken)
@@ -89,7 +100,7 @@ export const githubAuth = () => {
       {
         clientID: GITHUB_CLIENT_ID!,
         clientSecret: GITHUB_CLIENT_SECRET!,
-        callbackURL: 'auth/github/callback',
+        callbackURL: 'api/auth/github/callback',
       },
       (accessToken: any, refreshToken: any, profile: any, cb: any) => {
         console.log(accessToken, refreshToken)

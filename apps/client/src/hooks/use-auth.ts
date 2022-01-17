@@ -11,5 +11,5 @@ export const useAuth = () => {
     setToken(token)
   }, [])
 
-  return {token, isLoggedIn}
+  return {token, isLoggedIn, setToken}
 }
