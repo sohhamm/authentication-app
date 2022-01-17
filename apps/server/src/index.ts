@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import express, {Express, Response} from 'express'
+import express, {Express, Request, Response} from 'express'
 import dotenv from 'dotenv'
 import helmet from 'helmet'
 import cors from 'cors'
@@ -44,13 +44,12 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(helmet())
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use(cors())
 
-// health check route
 app.get('/api/health', (_, res: Response) => {
-  res.send('Health Check')
+  res.send('Server is healthy')
 })
 
 app.use('/api/auth', authRoutes)
@@ -59,6 +58,10 @@ app.use('/api/auth/twitter', twitterRoutes)
 app.use('/api/auth/facebook', facebookRoutes)
 app.use('/api/auth/github', githubRoutes)
 app.use('/api/user', authenticate, userRoutes)
+app.get('/api/auth/logout', (req: Request, res, _next) => {
+  req.logout()
+  res.redirect('/')
+})
 
 app.use([notFound])
 

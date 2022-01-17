@@ -9,4 +9,5 @@ export type TFetcher = (
   url: string,
   method?: string,
   payload?: any,
+  token?: string,
 ) => Promise<any>

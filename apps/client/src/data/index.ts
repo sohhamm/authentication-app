@@ -1,4 +1,5 @@
 import {fetcher} from '../utils'
+import {URL} from '../utils'
 
 export const getProfileDetails = async () => {
   const data = await fetcher('user')
@@ -25,21 +26,21 @@ export const emailRegister = async (payload: {
 }
 
 export const googleLogin = async () => {
-  return await fetcher('auth/google/login')
+  window.open(URL + 'auth/google/login', '_self')
 }
 
 export const facebookLogin = async () => {
-  return await fetcher('auth/facebook/login')
+  window.open(URL + 'auth/facebook/login', '_self')
 }
 
 export const twitterLogin = async () => {
-  return await fetcher('auth/twitter/login')
+  window.open(URL + 'auth/twitter/login', '_self')
 }
 
 export const githubLogin = async () => {
-  return await fetcher('auth/github/login')
+  window.open(URL + 'auth/github/login', '_self')
 }
 
 export const logout = async () => {
-  return await fetcher('auth/logout')
+  window.open(URL + 'auth/logout', '_self')
 }

@@ -4,11 +4,6 @@ const router = express.Router()
 
 router.get('/login', passport.authenticate('google', {scope: 'profile'}))
 
-router.get('/logout', (req, res, _next) => {
-  req.logout()
-  res.redirect('/')
-})
-
 router.get(
   '/callback',
   passport.authenticate('google', {failureRedirect: '/'}),

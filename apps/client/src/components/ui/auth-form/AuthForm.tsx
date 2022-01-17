@@ -3,6 +3,7 @@ import Brand from '../brand/Brand'
 import {MdEmail, MdLock} from 'react-icons/md'
 import {IAuthForm} from '../../../types'
 import {socialAuth} from '../../../constants'
+import {useAuth} from '../../../hooks/use-auth'
 
 export default function AuthForm({
   title,
@@ -10,6 +11,8 @@ export default function AuthForm({
   ctaText,
   buttonText,
 }: IAuthForm) {
+  const {token} = useAuth()
+
   return (
     <div className={styles.container}>
       <Brand />
@@ -40,7 +43,11 @@ export default function AuthForm({
       <p className={styles.actionText}>or continue with these social profile</p>
       <div className={styles.socialBox}>
         {socialAuth.map(social => (
-          <div className={styles.socialProvider} key={social.link}>
+          <div
+            className={styles.socialProvider}
+            key={social.link}
+            onClick={() => social.callback()}
+          >
             <social.icon fill="#828282" size="20px" />
           </div>
         ))}
