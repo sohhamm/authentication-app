@@ -5,7 +5,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import {IsEmail, IsNotEmpty} from 'class-validator'
+import {IsEmail} from 'class-validator'
 
 @Entity()
 export class User extends BaseEntity {
@@ -30,10 +30,9 @@ export class User extends BaseEntity {
   @Column({nullable: true})
   phone?: string
 
-  @Column({unique: true})
-  @IsNotEmpty()
+  @Column({unique: true, nullable: true})
   @IsEmail()
-  email!: string
+  email?: string
 
   @Column({nullable: true})
   password?: string

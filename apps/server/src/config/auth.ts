@@ -33,8 +33,9 @@ export const googleAuth = () => {
           _json: {name, sub, picture, email},
         } = profile
         const entityManager = getManager()
-        const user = await entityManager.findOne(User, {
+        let user = await entityManager.findOne(User, {
           email,
+          googleID: sub,
         })
 
         if (!user) {
@@ -43,7 +44,7 @@ export const googleAuth = () => {
           newUser.name = name
           newUser.googleID = sub
           newUser.photoUrl = picture
-          if (email) newUser.email = email
+          newUser.email = email
           await newUser.save()
         } else {
           //update gID
@@ -56,6 +57,7 @@ export const googleAuth = () => {
   )
 }
 
+// ! uses OAuth 1 , not reliable and limited api access
 export const twitterAuth = () => {
   passport.use(
     new TStrategy(
@@ -64,9 +66,25 @@ export const twitterAuth = () => {
         consumerSecret: TWITTER_CONSUMER_SECRET!,
         callbackURL: 'api/auth/twitter/callback',
         sessionKey: SESSION_SECRET,
+        skipExtendedUserProfile: true,
       },
-      (accessToken, _refreshToken, profile, cb) => {
-        console.log({profile})
+      async (accessToken, _refreshToken, profile, cb) => {
+        const {id, username} = profile
+        const entityManager = getManager()
+        const user = await entityManager.findOne(User, {
+          twitterID: id,
+        })
+        if (!user) {
+          //create a user
+          const newUser = new User()
+          newUser.name = username
+          newUser.twitterID = id
+          await newUser.save()
+        } else {
+          //update tID
+          user.twitterID = id
+          await user.save()
+        }
         return cb(null, accessToken)
       },
     ),

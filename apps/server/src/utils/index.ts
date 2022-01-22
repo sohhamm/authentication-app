@@ -17,3 +17,5 @@ export const hashPassword: HashPasswordFn = async password => {
 export const comparePassword: ComparePasswordFn = async (password, hash) => {
   return await bcrypt.compare(password, hash)
 }
+
+export const CLIENT_URL = 'http://localhost:3000'

@@ -1,8 +1,7 @@
 import express from 'express'
 import passport from 'passport'
+import {CLIENT_URL} from '../utils'
 const router = express.Router()
-
-const CLIENT_URL = 'http://localhost:3000'
 
 router.get(
   '/login',
