@@ -15,7 +15,7 @@ router.get('/logout', (req, res, _next) => {
 
 router.get(
   '/callback',
-  passport.authenticate('google', {failureRedirect: CLIENT_URL + '/register'}),
+  passport.authenticate('github', {failureRedirect: CLIENT_URL + '/register'}),
   (_req, res, _next) => {
     res.redirect(CLIENT_URL)
   },
