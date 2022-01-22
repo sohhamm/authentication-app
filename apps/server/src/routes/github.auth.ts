@@ -1,5 +1,6 @@
 import express from 'express'
 import passport from 'passport'
+import {CLIENT_URL} from '../utils'
 const router = express.Router()
 
 router.get(
@@ -14,9 +15,9 @@ router.get('/logout', (req, res, _next) => {
 
 router.get(
   '/callback',
-  passport.authenticate('github', {failureRedirect: '/'}),
+  passport.authenticate('google', {failureRedirect: CLIENT_URL + '/register'}),
   (_req, res, _next) => {
-    res.redirect('/')
+    res.redirect(CLIENT_URL)
   },
 )
 

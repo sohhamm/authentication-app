@@ -18,4 +18,7 @@ export const comparePassword: ComparePasswordFn = async (password, hash) => {
   return await bcrypt.compare(password, hash)
 }
 
-export const CLIENT_URL = 'http://localhost:3000'
+export const CLIENT_URL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://authentication-app1.netlify.app'
+    : 'http://localhost:3000'

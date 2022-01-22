@@ -79,6 +79,7 @@ export const twitterAuth = () => {
           const newUser = new User()
           newUser.name = username
           newUser.twitterID = id
+          newUser.email = `${username}@test.com`
           await newUser.save()
         } else {
           //update tID
@@ -97,10 +98,32 @@ export const facebookAuth = () => {
       {
         clientID: FACEBOOK_APP_ID!,
         clientSecret: FACEBOOK_APP_SECRET!,
-        callbackURL: 'api/auth/facebook/callback',
+        callbackURL: 'http://localhost:9000/api/auth/facebook/callback?code',
       },
-      (accessToken, _refreshToken, profile, cb) => {
+      async (accessToken, _refreshToken, profile, cb) => {
         console.log({profile})
+        // const {
+        //   _json: {name, sub, picture, email},
+        // } = profile
+        // const entityManager = getManager()
+        // let user = await entityManager.findOne(User, {
+        //   email,
+        //   googleID: sub,
+        // })
+
+        // if (!user) {
+        //   //create a user
+        //   const newUser = new User()
+        //   newUser.name = name
+        //   newUser.googleID = sub
+        //   newUser.photoUrl = picture
+        //   newUser.email = email
+        //   await newUser.save()
+        // } else {
+        //   //update gID
+        //   user.googleID = sub
+        //   await user.save()
+        // }
         return cb(null, accessToken)
       },
     ),
@@ -115,8 +138,29 @@ export const githubAuth = () => {
         clientSecret: GITHUB_CLIENT_SECRET!,
         callbackURL: 'api/auth/github/callback',
       },
-      (accessToken: any, _refreshToken: any, profile: any, cb: any) => {
+      async (accessToken: any, _refreshToken: any, profile: any, cb: any) => {
         console.log({profile})
+        const {
+          _json: {name, id, avatar_url, email},
+        } = profile
+        const entityManager = getManager()
+        let user = await entityManager.findOne(User, {
+          githubID: id,
+          name,
+          email,
+        })
+
+        if (!user) {
+          const newUser = new User()
+          newUser.name = name
+          newUser.githubID = id
+          newUser.photoUrl = avatar_url
+          newUser.email = email
+          await newUser.save()
+        } else {
+          user.githubID = id
+          await user.save()
+        }
         return cb(null, accessToken)
       },
     ),
