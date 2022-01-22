@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import helmet from 'helmet'
 import cors from 'cors'
 import passport from 'passport'
+import session from 'express-session'
 import {connectDB} from './config/db'
 import {
   authRoutes,
@@ -22,7 +23,6 @@ import {
   passportSession,
   twitterAuth,
 } from './config/auth'
-import session from 'express-session'
 
 dotenv.config()
 

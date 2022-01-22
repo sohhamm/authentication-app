@@ -36,7 +36,6 @@ export class User extends BaseEntity {
   email!: string
 
   @Column({nullable: true})
-  @IsNotEmpty()
   password?: string
 
   @Column({name: 'github_id', nullable: true})

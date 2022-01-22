@@ -37,19 +37,18 @@ export const googleAuth = () => {
           email,
         })
 
-        console.log(user, 'user')
         if (!user) {
           //create a user
-          // user.name = name
-          // user.googleID = sub
-          // user.photoUrl = picture
-          // if (email) user.email = email
+          const newUser = new User()
+          newUser.name = name
+          newUser.googleID = sub
+          newUser.photoUrl = picture
+          if (email) newUser.email = email
+          await newUser.save()
         } else {
           //update gID
-          user.name = name
           user.googleID = sub
-          user.photoUrl = picture
-          if (email) user.email = email
+          await user.save()
         }
         return cb(null, accessToken)
       },
